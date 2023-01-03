@@ -1,7 +1,7 @@
 terraform {
     backend "s3" {
-        bucket = "gh-terraform"
-        key = "	gh-terraform-statefile.tfstate"
+        bucket = "gh-deploy-terraform"
+        key = "	gh-deploy-terraform-statefile.tfstate"
         region = "us-east-1"
     }
 
