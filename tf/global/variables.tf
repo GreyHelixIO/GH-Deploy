@@ -1,7 +1,7 @@
-variable "github_token" {
-    type = string
-    description = "Github access token."
-}
+# variable "github_token" {
+#     type = string
+#     description = "Github access token."
+# }
 
 variable "aws_cicd_role_arn" {
     type = string
@@ -31,12 +31,12 @@ variable "poll_for_changes" {
     default     = true
 }
 
-variable "AWS_ID" {
-    type        = string
-    description = "AWS authentication ID."
-}
+# variable "AWS_ID" {
+#     type        = string
+#     description = "AWS authentication ID."
+# }
 
-variable "AWS_SECRET" {
-    type        = string
-    description = "AWS authentication secret."
-}
+# variable "AWS_SECRET" {
+#     type        = string
+#     description = "AWS authentication secret."
+# }

@@ -12,8 +12,8 @@ data "aws_secretsmanager_secret" "prod_build_secrets" {
     arn = "arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-api-config-prod-wvQqls"
 }
 
-data "aws_secretsmanager_secret" "prod_build_secrets" {
-    arn = "arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-api-config-prod-wvQqls"
+data "aws_secretsmanager_secret" "qa_build_secret" {
+    arn = "arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-api-config-qa-E73Reo"
 }
 
 data "aws_secretsmanager_secret_version" "gh_global_github_token_secret_version" {

@@ -17,12 +17,12 @@ terraform {
 
 provider "aws" {
     region  = "us-east-1"
-    access_key = var.AWS_ID
-    secret_key = var.AWS_SECRET
+    access_key = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_terraform_secret_version.secret_string)["AWS_ID"]}"
+    secret_key = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_terraform_secret_version.secret_string)["AWS_SECRET"]}"
 }
 
-resource "aws_codebuild_project" "gh_api_pipeline_builder" {
-    name          = "gh-api-pipeline-builder"
+resource "aws_codebuild_project" "gh_pipeline_builder" {
+    name          = "gh-pipeline-builder"
     description   = "CodeBuild project for building up the rest of the api CICD pipeline"
     build_timeout = "5"
     service_role  = var.aws_cicd_role_arn
@@ -54,7 +54,7 @@ resource "aws_codebuild_project" "gh_api_pipeline_builder" {
 resource "aws_codebuild_source_credential" "gh-github-credentials" {
     auth_type   = "PERSONAL_ACCESS_TOKEN"
     server_type = "GITHUB"
-    token       = var.github_token
+    token       = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_github_token_secret_version.secret_string)["GITHUB_TOKEN"]}"
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
