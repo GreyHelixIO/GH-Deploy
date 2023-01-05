@@ -17,8 +17,8 @@ terraform {
 
 provider "aws" {
     region  = "us-east-1"
-    access_key = module.secretsmanager.AWS_ID
-    secret_key = module.secretsmanager.AWS_SECRET
+    access_key = var.AWS_ID
+    secret_key = var.AWS_SECRET
 }
 
 resource "aws_codebuild_project" "gh_pipeline_builder" {

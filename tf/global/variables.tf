@@ -1,15 +1,11 @@
-# variable "AWS_ID" {
-#     type        = string
-#     default     = 
-# }
-# variable "AWS_SECRET" {
-#     type        = string
-#     default     = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_terraform_secret_version.secret_string)["AWS_SECRET"]}"
-# }
-# variable "GITHUB_TOKEN" {
-#     type    = string
-#     default = 
-# }
+variable "AWS_ID" {
+    type        = string
+    description = "The AWS access key ID."
+}
+variable "AWS_SECRET" {
+    type        = string
+    description = "The AWS access secret key."
+}
 variable "aws_cicd_role_arn" {
     type = string
     description = "The arn connected to the aws role for the ci-cd pipeline."

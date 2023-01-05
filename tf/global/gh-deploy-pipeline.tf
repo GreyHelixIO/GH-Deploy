@@ -18,7 +18,7 @@ resource "aws_codepipeline" "gh_api_pipeline" {
             version          = "1"
             output_artifacts = ["code"]
             configuration = {
-                OAuthToken           = var.github_token
+                OAuthToken           = module.secretsmanager.GITHUB_TOKEN
                 Owner                = var.repo_owner
                 Repo                 = var.repo
                 Branch               = var.branch
