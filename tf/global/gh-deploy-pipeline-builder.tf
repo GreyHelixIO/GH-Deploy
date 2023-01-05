@@ -1,7 +1,7 @@
 terraform {
     backend "s3" {
-        bucket = "gh-deploy-terraform"
-        key = "	gh-deploy-terraform-statefile.tfstate"
+        bucket = "gh-terraform"
+        key = "	gh-terraform-statefile.tfstate"
         region = "us-east-1"
     }
 
@@ -17,8 +17,8 @@ terraform {
 
 provider "aws" {
     region  = "us-east-1"
-    access_key = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_terraform_secret_version.secret_string)["AWS_ID"]}"
-    secret_key = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_terraform_secret_version.secret_string)["AWS_SECRET"]}"
+    access_key = module.secretsmanager.AWS_ID
+    secret_key = module.secretsmanager.AWS_SECRET
 }
 
 resource "aws_codebuild_project" "gh_pipeline_builder" {
@@ -54,7 +54,7 @@ resource "aws_codebuild_project" "gh_pipeline_builder" {
 resource "aws_codebuild_source_credential" "gh-github-credentials" {
     auth_type   = "PERSONAL_ACCESS_TOKEN"
     server_type = "GITHUB"
-    token       = "${jsondecode(data.aws_secretsmanager_secret_version.gh_global_github_token_secret_version.secret_string)["GITHUB_TOKEN"]}"
+    token       = module.secretsmanager.GITHUB_TOKEN
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
@@ -64,4 +64,8 @@ resource "aws_s3_bucket" "codepipeline_bucket" {
 resource "aws_s3_bucket_acl" "codepipeline_bucket_acl" {
     bucket = aws_s3_bucket.codepipeline_bucket.id
     acl    = "private"
+}
+
+module "secretsmanager" {
+    source = "../modules/aws/secretsmanager"
 }
