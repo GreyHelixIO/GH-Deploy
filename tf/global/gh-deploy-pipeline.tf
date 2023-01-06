@@ -1,5 +1,5 @@
-resource "aws_codepipeline" "gh_api_pipeline" {
-    name = "gh-api-pipeline"
+resource "aws_codepipeline" "gh_deploy_pipeline" {
+    name = "gh-deploy-pipeline"
     role_arn = aws_iam_role.codepipeline_role.arn
 
     artifact_store {

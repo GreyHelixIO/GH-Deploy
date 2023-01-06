@@ -26,7 +26,7 @@ variable "repo" {
 }
 variable "branch" {
     type        = string
-    default     = "aws-migration"
+    default     = "main"
 }
 variable "poll_for_changes" {
     type        = string
