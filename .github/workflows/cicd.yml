@@ -1,5 +1,8 @@
 name: Update Repo
 on:
+  push:
+    branches:
+      - main
   repository_dispatch:
     types: update
 jobs:
@@ -13,7 +16,7 @@ jobs:
       - name: Update module
         run: |
           git submodule update --init --recursive --checkout -f --remote -- "${{github.event.client_payload.module}}"
-          git config --global user.name "GitHub Action"
-          git config --global user.email "noreply@github.com"
+          git config --global user.name "greYheliX"
+          git config --global user.email "info@greyhelix.io"
           git commit -am "deploy: ${{github.event.client_payload.module}} - ${{github.event.client_payload.sha}}"
           git push
