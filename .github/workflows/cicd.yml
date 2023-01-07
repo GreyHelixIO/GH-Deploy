@@ -15,7 +15,7 @@ jobs:
           submodules: recursive
       - name: Update module
         run: |
-          git submodule update --init --recursive --checkout -f --remote -- "${{github.event.client_payload.module}}"
+          git submodule update --init --recursive --checkout -f --remote -- "${{github.event.client_payload.module}} || GreyHelixIO/GH-Deploy"
           git config --global user.name "greYheliX"
           git config --global user.email "info@greyhelix.io"
           git commit -am "deploy: ${{github.event.client_payload.module}} - ${{github.event.client_payload.sha}}"
