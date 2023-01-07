@@ -10,12 +10,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
-      - name: Clone Submodules
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          submodules: recursive
-          ref: main
-      - name: Push
+          submodules: true
+      - name: Git Sumbodule Update
         run: |
-          git push
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
+      - name: Commit update
+        run: |
+          git config --global user.name 'greYheliX'
+          git config --global user.email 'info@greyhelix.io'
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "Auto updated submodule references" && git push || echo "No changes to commit"
