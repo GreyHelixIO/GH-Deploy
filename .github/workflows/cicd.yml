@@ -6,14 +6,16 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Clone Repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Clone Submodules
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
           submodules: recursive
-      - name: Update module
+          ref: main
+      - name: Push
         run: |
-          git submodule update --init --recursive --checkout -f --remote -- "${{github.event.client_payload.module}}"
-          git config --global user.name "greYheliX"
-          git config --global user.email "info@greyhelix.io"
-          git commit -am "deploy: ${{github.event.client_payload.module}} - ${{github.event.client_payload.sha}}"
           git push
