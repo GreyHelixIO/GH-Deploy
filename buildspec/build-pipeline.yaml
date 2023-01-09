@@ -20,17 +20,15 @@ phases:
       - echo "$ssh_pub" > ~/.ssh/id_rsa.pub
       - chmod 600 ~/.ssh/id_rsa
       - eval "$(ssh-agent -s)"
-      # - git init
-      # - git fetch origin
-      # - git branch
-      # - git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"
-      # - git submodule init
-      # - git submodule update --recursive
+      - git init
+      - git fetch origin
+      - git branch
+      - git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - git submodule init
+      - git submodule update --recursive
 
   build:
     commands:
-      - git submodule init
-      - git submodule update --recursive
       - cd ./tf/global
       - terraform init
       - terraform apply -auto-approve
