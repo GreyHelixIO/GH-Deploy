@@ -40,7 +40,7 @@ resource "aws_codebuild_project" "gh_pipeline_builder" {
 
     source {
         type            = "GITHUB"
-        location        = "https://github.com/GreyHelixIO/GHApi.git"
+        location        = "https://github.com/GreyHelixIO/GH-Deploy.git"
         git_clone_depth = 1
         buildspec = "./buildspec/build-pipeline.yaml"
         git_submodules_config {
@@ -48,7 +48,7 @@ resource "aws_codebuild_project" "gh_pipeline_builder" {
         }
     }
 
-    source_version = "aws-migration"
+    source_version = "main"
 }
 
 resource "aws_codebuild_source_credential" "gh-github-credentials" {

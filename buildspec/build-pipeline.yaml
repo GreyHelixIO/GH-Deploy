@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    TF_VAR_AWS_ID: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_ID
+    TF_VAR_AWS_SECRET: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_SECRET
+
+phases:
+  install:
+    commands:
+      - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
+      - unzip terraform_install.zip -d /usr/bin/
+      - chmod +x /usr/bin/terraform
+
+  build:
+    commands:
+      - cd ./tf/global
+      - terraform init
+      - terraform apply -auto-approve
