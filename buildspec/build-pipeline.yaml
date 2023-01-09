@@ -2,6 +2,8 @@ version: 0.2
 
 env:
   secrets-manager:
+    ssh_key: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-deploy-ssh-key-2adter:gh_id_rsa
+    ssh_pub: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-deploy-ssh-key-2adter:gh_id_rsa_pub
     TF_VAR_AWS_ID: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_ID
     TF_VAR_AWS_SECRET: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_SECRET
 
@@ -11,6 +13,14 @@ phases:
       - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
       - unzip terraform_install.zip -d /usr/bin/
       - chmod +x /usr/bin/terraform
+
+  pre-build:
+    commands:
+      - mkdir -p ~/.ssh
+      - echo "$ssh_key" > ~/.ssh/id_rsa
+      - echo "$ssh_pub" > ~/.ssh/id_rsa.pub
+      - chmod 600 ~/.ssh/id_rsa
+      - eval "$(ssh-agent -s)"
 
   build:
     commands:
