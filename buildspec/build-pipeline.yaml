@@ -4,6 +4,7 @@ env:
   secrets-manager:
     ssh_key: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-deploy-ssh-key-2adter:gh_id_rsa
     ssh_pub: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-deploy-ssh-key-2adter:gh_id_rsa_pub
+    git_url: git@github.com:GreyHelixIO/GH-Deploy.git
     TF_VAR_AWS_ID: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_ID
     TF_VAR_AWS_SECRET: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_SECRET
 
@@ -21,6 +22,13 @@ phases:
       - echo "$ssh_pub" > ~/.ssh/id_rsa.pub
       - chmod 600 ~/.ssh/id_rsa
       - eval "$(ssh-agent -s)"
+      - git init
+      - git remote add origin "$git_url"
+      - git fetch origin
+      - git branch
+      - git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - git submodule init
+      - git submodule update --recursive
 
   build:
     commands:
