@@ -1,10 +1,11 @@
 version: 0.2
 
 env:
+  variables:
+    git_url: git@github.com:GreyHelixIO/GH-Deploy.git
   secrets-manager:
     ssh_key: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-deploy-ssh-key-2adter:gh_id_rsa
     ssh_pub: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-deploy-ssh-key-2adter:gh_id_rsa_pub
-    git_url: git@github.com:GreyHelixIO/GH-Deploy.git
     TF_VAR_AWS_ID: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_ID
     TF_VAR_AWS_SECRET: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_SECRET
 
