@@ -27,3 +27,8 @@ variable "poll_for_changes" {
     type        = string
     default     = true
 }
+variable "gh_api_port" {
+    type = number
+    description = "Default port for the api to listen."
+    default = 80
+}
