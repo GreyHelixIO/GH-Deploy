@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  # secrets-manager:
+  #   TF_VAR_github_token: arn:aws:secretsmanager:us-east-1:482352589093:secret:scp-github-access-token-wl0bYW:TF_VAR_github_token
+  #   TF_VAR_AWS_ID: arn:aws:secretsmanager:us-east-1:482352589093:secret:terraform-global-variables-tw1F9n:TF_VAR_AWS_ID
+  #   TF_VAR_AWS_SECRET: arn:aws:secretsmanager:us-east-1:482352589093:secret:terraform-global-variables-tw1F9n:TF_VAR_AWS_SECRET
+
+phases:
+  build:
+    commands:
+      - cd ./GHApi
+      - docker build . -t test
+      # - export DOCKER_PUSH_URL=$ECR_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      # - export ECR_URI=${ECR_URL%/*}
+      # - cd ./src/CryptoSoundAPI
+      # - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URI
+      # - docker build --build-arg PORT=$PORT . -t cs-api
+      # - docker tag cs-api $DOCKER_PUSH_URL
+      # - docker push $DOCKER_PUSH_URL
+      # - cd ../../src/CryptoSoundUI
+      # - npm install
+      # - npm run generate
+
+artifacts:
+  files:
+    - '**/*'
