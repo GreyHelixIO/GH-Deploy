@@ -10,7 +10,7 @@ env:
     TF_VAR_AWS_SECRET: arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-global-terraform-SgEFp1:AWS_SECRET
 
 phases:
-  pre-build:
+  pre_build:
     commands:
       - mkdir -p ~/.ssh
       - echo "$ssh_key" > ~/.ssh/id_rsa
