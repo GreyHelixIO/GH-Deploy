@@ -1,9 +1,0 @@
-[submodule "GreyHelix"]
-	path = GreyHelix
-	url = git@github.com:GreyHelixIO/GreyHelix.git
-[submodule "GHApi"]
-	path = GHApi
-	url = git@github.com:GreyHelixIO/GHApi.git
-[submodule "GHMessaging"]
-	path = GHMessaging
-	url = git@github.com:GreyHelixIO/GHMessaging.git
