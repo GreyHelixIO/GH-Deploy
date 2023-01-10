@@ -396,7 +396,7 @@ resource "aws_codebuild_project" "gh_api_build_qa" {
 
     source {
         type      = "CODEPIPELINE"
-        buildspec = "./buildspec/build.yaml"
+        buildspec = "./buildspec/build-api.yaml"
     }
 
     source_version = "main"
