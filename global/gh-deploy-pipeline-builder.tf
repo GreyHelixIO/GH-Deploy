@@ -42,7 +42,7 @@ resource "aws_codebuild_project" "gh_pipeline_builder" {
         type            = "GITHUB"
         location        = "https://github.com/GreyHelixIO/GH-Deploy.git"
         git_clone_depth = 0
-        buildspec = "./buildspec/build-pipeline.yaml"
+        buildspec = "./buildspec/build-pipelines.yaml"
         git_submodules_config {
             fetch_submodules = true
         }

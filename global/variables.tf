@@ -15,9 +15,17 @@ variable "repo_owner" {
     type        = string
     default     = "GreyHelixIO"
 }
-variable "repo" {
+variable "msg_repo" {
     type        = string
-    default     = "GH-Deploy"
+    default     = "GHMessenger"
+}
+variable "api_repo" {
+    type        = string
+    default     = "GHApi"
+}
+variable "frontend_repo" {
+    type        = string
+    default     = "GreyHelix"
 }
 variable "branch" {
     type        = string
