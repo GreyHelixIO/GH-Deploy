@@ -17,8 +17,8 @@ terraform {
 
 provider "aws" {
     region  = "us-east-1"
-    access_key = module.secretsmanager.AWS_ID
-    secret_key = module.secretsmanager.AWS_SECRET
+    access_key = var.AWS_ID
+    secret_key = var.AWS_SECRET
 }
 
 resource "aws_codebuild_project" "gh_pipeline_builder" {
@@ -40,15 +40,15 @@ resource "aws_codebuild_project" "gh_pipeline_builder" {
 
     source {
         type            = "GITHUB"
-        location        = "https://github.com/GreyHelixIO/GHApi.git"
-        git_clone_depth = 1
+        location        = "https://github.com/GreyHelixIO/GH-Deploy.git"
+        git_clone_depth = 0
         buildspec = "./buildspec/build-pipeline.yaml"
         git_submodules_config {
             fetch_submodules = true
         }
     }
 
-    source_version = "aws-migration"
+    source_version = "main"
 }
 
 resource "aws_codebuild_source_credential" "gh-github-credentials" {

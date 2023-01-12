@@ -1,5 +1,5 @@
-resource "aws_codepipeline" "gh_api_pipeline" {
-    name = "gh-api-pipeline"
+resource "aws_codepipeline" "gh_deploy_pipeline" {
+    name = "gh-deploy-pipeline"
     role_arn = aws_iam_role.codepipeline_role.arn
 
     artifact_store {
@@ -18,7 +18,7 @@ resource "aws_codepipeline" "gh_api_pipeline" {
             version          = "1"
             output_artifacts = ["code"]
             configuration = {
-                OAuthToken           = var.github_token
+                OAuthToken           = module.secretsmanager.GITHUB_TOKEN
                 Owner                = var.repo_owner
                 Repo                 = var.repo
                 Branch               = var.branch
@@ -44,65 +44,65 @@ resource "aws_codepipeline" "gh_api_pipeline" {
         }
     }
 
-    stage {
-        name = "Deploy-QA"
-            action {
-                name             = "Deploy-QA"
-                category         = "Build"
-                owner            = "AWS"
-                provider         = "CodeBuild"
-                input_artifacts  = ["qa_build"]
-                version          = "1"
+    # stage {
+    #     name = "Deploy-QA"
+    #         action {
+    #             name             = "Deploy-QA"
+    #             category         = "Build"
+    #             owner            = "AWS"
+    #             provider         = "CodeBuild"
+    #             input_artifacts  = ["qa_build"]
+    #             version          = "1"
 
-            configuration = {
-                ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
-            }
-        }
-    }
+    #         configuration = {
+    #             ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
+    #         }
+    #     }
+    # }
 
-    stage {
-        name = "Approve-QA"
-        action {
-            name             = "Approve-QA"
-            category         = "Approval"
-            owner            = "AWS"
-            provider         = "Manual"
-            version          = "1"
-        }
-    }
+    # stage {
+    #     name = "Approve-QA"
+    #     action {
+    #         name             = "Approve-QA"
+    #         category         = "Approval"
+    #         owner            = "AWS"
+    #         provider         = "Manual"
+    #         version          = "1"
+    #     }
+    # }
 
-    stage {
-        name = "Prod-Build"
-            action {
-                name             = "Prod-Build"
-                category         = "Build"
-                owner            = "AWS"
-                provider         = "CodeBuild"
-                input_artifacts  = ["code"]
-                output_artifacts = ["prod_build"]
-                version          = "1"
+    # stage {
+    #     name = "Prod-Build"
+    #         action {
+    #             name             = "Prod-Build"
+    #             category         = "Build"
+    #             owner            = "AWS"
+    #             provider         = "CodeBuild"
+    #             input_artifacts  = ["code"]
+    #             output_artifacts = ["prod_build"]
+    #             version          = "1"
 
-            configuration = {
-                ProjectName = aws_codebuild_project.gh_api_build_prod.name
-            }
-        }
-    }
+    #         configuration = {
+    #             ProjectName = aws_codebuild_project.gh_api_build_prod.name
+    #         }
+    #     }
+    # }
 
-    stage {
-        name = "Deploy-Prod"
-            action {
-                name             = "Deploy-Prod"
-                category         = "Build"
-                owner            = "AWS"
-                provider         = "CodeBuild"
-                input_artifacts  = ["prod_build"]
-                version          = "1"
+    # stage {
+    #     name = "Deploy-Prod"
+    #         action {
+    #             name             = "Deploy-Prod"
+    #             category         = "Build"
+    #             owner            = "AWS"
+    #             provider         = "CodeBuild"
+    #             input_artifacts  = ["prod_build"]
+    #             version          = "1"
 
-            configuration = {
-                ProjectName          = aws_codebuild_project.gh_api_deploy_prod.name
-            }
-        }
-    }
+    #         configuration = {
+    #             ProjectName          = aws_codebuild_project.gh_api_deploy_prod.name
+    #         }
+    #     }
+    # }
 }
 
 resource "aws_iam_role" "codepipeline_role" {
@@ -396,7 +396,7 @@ resource "aws_codebuild_project" "gh_api_build_qa" {
 
     source {
         type      = "CODEPIPELINE"
-        buildspec = "./buildspec/build.yaml"
+        buildspec = "./buildspec/build-api.yaml"
     }
 
     source_version = "main"
