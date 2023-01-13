@@ -67,7 +67,7 @@ resource "aws_s3_bucket_acl" "codepipeline_bucket_acl" {
 }
 
 module "secretsmanager" {
-    source = "../modules/aws/secretsmanager"
+    source = "../aws/secretsmanager"
 }
 resource "aws_iam_role" "codepipeline_role" {
     name = "codepipeline-assume-role"

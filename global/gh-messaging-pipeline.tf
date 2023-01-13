@@ -30,7 +30,7 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
     stage {
         name = "Build"
             action {
-                name             = "Build"
+                name             = "Build-QA"
                 category         = "Build"
                 owner            = "AWS"
                 provider         = "CodeBuild"
@@ -105,9 +105,9 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
     # }
 }
 
-resource "aws_codebuild_project" "messaging_build_qa" {
+resource "aws_codebuild_project" "gh_messaging_build_qa" {
     name          = "gh-messaging-build-qa"
-    description   = "CodeBuild project for building GreyHelix Messenger."
+    description   = "CodeBuild project for building GreyHelix Messenger in QA."
     build_timeout = "5"
     service_role  = var.aws_cicd_role_arn
 
@@ -132,7 +132,7 @@ resource "aws_codebuild_project" "messaging_build_qa" {
         environment_variable {
             name = "ECR_URL"
             type = "PLAINTEXT"
-            value = aws_ecr_repository.gh_messaging_container_repo.repository_url
+            value = aws_ecr_repository.gh_messaging_container_repo_qa.repository_url
         }
 
         environment_variable {
@@ -675,8 +675,26 @@ resource "aws_codebuild_project" "messaging_build_qa" {
 #     source_version = "main"
 # }
 
-resource "aws_ecr_repository" "gh_messaging_container_repo" {
+resource "aws_ecr_repository" "gh_messaging_container_repo_qa" {
     name                 = "gh-messaging-container-repo-qa"
+    image_tag_mutability = "MUTABLE"
+
+    image_scanning_configuration {
+        scan_on_push = true
+    }
+}
+
+resource "aws_ecr_repository" "gh_messaging_container_repo_stage" {
+    name                 = "gh-messaging-container-repo-stage"
+    image_tag_mutability = "MUTABLE"
+
+    image_scanning_configuration {
+        scan_on_push = true
+    }
+}
+
+resource "aws_ecr_repository" "gh_messaging_container_repo_prod" {
+    name                 = "gh-messaging-container-repo-prod"
     image_tag_mutability = "MUTABLE"
 
     image_scanning_configuration {
