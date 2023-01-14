@@ -17,7 +17,7 @@ variable "repo_owner" {
 }
 variable "msg_repo" {
     type        = string
-    default     = "GHMessenger"
+    default     = "GHMessaging"
 }
 variable "api_repo" {
     type        = string
