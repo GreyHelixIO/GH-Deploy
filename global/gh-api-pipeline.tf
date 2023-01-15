@@ -1,5 +1,5 @@
-resource "aws_codepipeline" "gh_messaging_pipeline" {
-    name = "gh-messaging-pipeline"
+resource "aws_codepipeline" "gh_api_pipeline" {
+    name = "gh-api-pipeline"
     role_arn = aws_iam_role.codepipeline_role.arn
 
     artifact_store {
@@ -39,7 +39,7 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
                 version          = "1"
 
             configuration = {
-                ProjectName = aws_codebuild_project.gh_messaging_build_qa.name
+                ProjectName = aws_codebuild_project.gh_api_build_qa.name
             }
         }
     }
@@ -105,8 +105,8 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
     # }
 }
 
-resource "aws_codebuild_project" "gh_messaging_build_qa" {
-    name          = "gh-messaging-build-qa"
+resource "aws_codebuild_project" "gh_api_build_qa" {
+    name          = "gh-api-build-qa"
     description   = "CodeBuild project for building GreyHelix Messenger in QA."
     build_timeout = "5"
     service_role  = var.aws_cicd_role_arn
@@ -132,7 +132,7 @@ resource "aws_codebuild_project" "gh_messaging_build_qa" {
         environment_variable {
             name = "ECR_URL"
             type = "PLAINTEXT"
-            value = aws_ecr_repository.gh_messaging_container_repo_qa.repository_url
+            value = aws_ecr_repository.gh_api_container_repo_qa.repository_url
         }
 
         environment_variable {
