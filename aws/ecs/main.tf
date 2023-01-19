@@ -60,7 +60,7 @@ resource "aws_ecs_cluster" "gh_cluster" {
 resource "aws_ecs_service" "gh_api_service" {
     name            = "gh-api-service-${var.env}"
     cluster         = aws_ecs_cluster.gh_cluster.id
-    task_definition = "${aws_ecs_task_definition.cs_api_task.arn}"
+    task_definition = "${aws_ecs_task_definition.gh_api_task.arn}"
     launch_type     = "FARGATE"
     desired_count   = 1
     deployment_minimum_healthy_percent = 0
@@ -72,7 +72,7 @@ resource "aws_ecs_service" "gh_api_service" {
     }
     load_balancer {
         target_group_arn = "${aws_lb_target_group.target_group.arn}"
-        container_name   = "${aws_ecs_task_definition.cs_api_task.family}"
+        container_name   = "${aws_ecs_task_definition.gh_api_task.family}"
         container_port   = 80
     }
 }
@@ -179,5 +179,5 @@ data "aws_secretsmanager_secret" "gh_service_secrets" {
 }
 
 data "aws_secretsmanager_secret_version" "current" {
-    secret_id = data.aws_secretsmanager_secret.cs_service_secrets.id
+    secret_id = data.aws_secretsmanager_secret.gh_service_secrets.id
 }
