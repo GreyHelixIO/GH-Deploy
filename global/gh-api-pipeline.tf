@@ -20,7 +20,7 @@ resource "aws_codepipeline" "gh_api_pipeline" {
             configuration = {
                 OAuthToken           = module.secretsmanager.GITHUB_TOKEN
                 Owner                = var.repo_owner
-                Repo                 = var.msg_repo
+                Repo                 = var.api_repo
                 Branch               = var.branch
                 PollForSourceChanges = var.poll_for_changes
             }
