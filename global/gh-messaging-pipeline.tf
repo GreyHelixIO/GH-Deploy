@@ -44,32 +44,32 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
         }
     }
 
-    # stage {
-    #     name = "Deploy-QA"
-    #         action {
-    #             name             = "Deploy-QA"
-    #             category         = "Build"
-    #             owner            = "AWS"
-    #             provider         = "CodeBuild"
-    #             input_artifacts  = ["qa_build"]
-    #             version          = "1"
+    stage {
+        name = "Deploy-QA"
+            action {
+                name             = "Deploy-QA"
+                category         = "Build"
+                owner            = "AWS"
+                provider         = "CodeBuild"
+                input_artifacts  = ["qa_build"]
+                version          = "1"
 
-    #         configuration = {
-    #             ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
-    #         }
-    #     }
-    # }
+            configuration = {
+                ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
+            }
+        }
+    }
 
-    # stage {
-    #     name = "Approve-QA"
-    #     action {
-    #         name             = "Approve-QA"
-    #         category         = "Approval"
-    #         owner            = "AWS"
-    #         provider         = "Manual"
-    #         version          = "1"
-    #     }
-    # }
+    stage {
+        name = "Approve-QA"
+        action {
+            name             = "Approve-QA"
+            category         = "Approval"
+            owner            = "AWS"
+            provider         = "Manual"
+            version          = "1"
+        }
+    }
 
     # stage {
     #     name = "Prod-Build"
@@ -216,46 +216,46 @@ resource "aws_codebuild_project" "gh_messaging_build_qa" {
     source_version = "main"
 }
 
-# resource "aws_codebuild_project" "gh_api_deploy_qa" {
-#     name          = "gh-api-deploy-qa"
-#     description   = "CodeBuild project for deploying CryptoSound."
-#     build_timeout = "5"
-#     service_role  = var.aws_cicd_role_arn
+resource "aws_codebuild_project" "gh_messaging_deploy_qa" {
+    name          = "gh-messaging-deploy-qa"
+    description   = "CodeBuild project for deploying messaging app to qa."
+    build_timeout = "5"
+    service_role  = var.aws_cicd_role_arn
 
-#     artifacts {
-#         type = "CODEPIPELINE"
-#     }
+    artifacts {
+        type = "CODEPIPELINE"
+    }
 
-#     environment {
-#         compute_type                = "BUILD_GENERAL1_SMALL"
-#         image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
-#         type                        = "LINUX_CONTAINER"
-#         image_pull_credentials_type = "CODEBUILD"
+    environment {
+        compute_type                = "BUILD_GENERAL1_SMALL"
+        image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+        type                        = "LINUX_CONTAINER"
+        image_pull_credentials_type = "CODEBUILD"
 
-#         privileged_mode = true
+        privileged_mode = true
 
-#         environment_variable {
-#             name = "ENV"
-#             type = "PLAINTEXT"
-#             value = "qa"
-#         }
+        environment_variable {
+            name = "ENV"
+            type = "PLAINTEXT"
+            value = "qa"
+        }
 
-#         environment_variable {
-#             name = "ECR_URL"
-#             type = "PLAINTEXT"
-#             value = aws_ecr_repository.gh_api_api_container_repo_qa.repository_url
-#         }
-#     }
+        environment_variable {
+            name = "ECR_URL"
+            type = "PLAINTEXT"
+            value = aws_ecr_repository.gh_api_api_container_repo_qa.repository_url
+        }
+    }
 
-#     source {
-#         type      = "CODEPIPELINE"
-#         buildspec = "./buildspec/deploy.yaml"
-#     }
+    source {
+        type      = "CODEPIPELINE"
+        buildspec = "./buildspec/deploy.yaml"
+    }
 
-#     source_version = "main"
-# }
+    source_version = "main"
+}
 
-# resource "aws_codebuild_project" "gh_api_build_prod" {
+# resource "aws_codebuild_project" "gh_messaging_build_prod" {
 #     name          = "gh-api-build-prod"
 #     description   = "CodeBuild project for building CryptoSound."
 #     build_timeout = "5"
