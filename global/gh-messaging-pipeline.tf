@@ -55,7 +55,7 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
                 version          = "1"
 
             configuration = {
-                ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
+                ProjectName          = aws_codebuild_project.gh_messaging_build_qa.name
             }
         }
     }
@@ -243,7 +243,7 @@ resource "aws_codebuild_project" "gh_messaging_deploy_qa" {
         environment_variable {
             name = "ECR_URL"
             type = "PLAINTEXT"
-            value = aws_ecr_repository.gh_api_api_container_repo_qa.repository_url
+            value = aws_ecr_repository.gh_api_container_repo_qa.repository_url
         }
     }
 
