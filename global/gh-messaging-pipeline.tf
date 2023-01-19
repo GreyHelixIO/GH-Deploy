@@ -55,7 +55,7 @@ resource "aws_codepipeline" "gh_messaging_pipeline" {
                 version          = "1"
 
             configuration = {
-                ProjectName          = aws_codebuild_project.gh_messaging_build_qa.name
+                ProjectName          = aws_codebuild_project.gh_messaging_deploy_qa.name
             }
         }
     }
