@@ -18,3 +18,17 @@ data "aws_secretsmanager_secret" "qa_api_build_secret" {
 data "aws_secretsmanager_secret_version" "qa_api_build_secret_version" {
     secret_id = data.aws_secretsmanager_secret.qa_api_build_secret.id
 }
+
+data "aws_secretsmanager_secret" "qa_messaging_build_secret" {
+    arn = "arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-messaging-config-qa-Ssdrmn"
+}
+data "aws_secretsmanager_secret_version" "qa_messaging_build_secret_version" {
+    secret_id = data.aws_secretsmanager_secret.qa_messaging_build_secret.id
+}
+
+data "aws_secretsmanager_secret" "prod_messaging_build_secret" {
+    arn = "arn:aws:secretsmanager:us-east-1:455667379642:secret:gh-messaging-config-prod-rRm0di"
+}
+data "aws_secretsmanager_secret_version" "prod_messaging_build_secret_version" {
+    secret_id = data.aws_secretsmanager_secret.prod_messaging_build_secret.id
+}

@@ -144,199 +144,199 @@ resource "aws_codebuild_project" "gh_api_build_qa" {
         environment_variable {
             name = "AWS_ID"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["AWS_ID"]}"
+            value = module.secretsmanager.API_CONFIG_QA["AWS_ID"]
         }
 
         environment_variable {
             name = "AWS_REGION"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["AWS_REGION"]}"
+            value = module.secretsmanager.API_CONFIG_QA["AWS_REGION"]
         }
 
         environment_variable {
             name = "AWS_SECRET"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["AWS_SECRET"]}"
+            value = module.secretsmanager.API_CONFIG_QA["AWS_SECRET"]
         }
 
         environment_variable {
             name = "AWS_SNS_TOPIC_ARN"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["AWS_SNS_TOPIC_ARN"]}"
+            value = module.secretsmanager.API_CONFIG_QA["AWS_SNS_TOPIC_ARN"]
         }
 
         environment_variable {
             name = "COOKIEDOMAIN"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["COOKIEDOMAIN"]}"
+            value = module.secretsmanager.API_CONFIG_QA["COOKIEDOMAIN"]
         }
 
         environment_variable {
             name = "DB_NAME"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["DB_NAME"]}"
+            value = module.secretsmanager.API_CONFIG_QA["DB_NAME"]
         }
 
         environment_variable {
             name = "DB_PWD"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["DB_PWD"]}"
+            value = module.secretsmanager.API_CONFIG_QA["DB_PWD"]
         }
 
         environment_variable {
             name = "DB_USER"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["DB_USER"]}"
+            value = module.secretsmanager.API_CONFIG_QA["DB_USER"]
         }
 
         environment_variable {
             name = "DEFAULTPRICE"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["DEFAULTPRICE"]}"
+            value = module.secretsmanager.API_CONFIG_QA["DEFAULTPRICE"]
         }
 
         environment_variable {
             name = "FACEBOOK_CALLBACK_URL"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["FACEBOOK_CALLBACK_URL"]}"
+            value = module.secretsmanager.API_CONFIG_QA["FACEBOOK_CALLBACK_URL"]
         }
 
         environment_variable {
             name = "FACEBOOK_CLIENT_ID"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["FACEBOOK_CLIENT_ID"]}"
+            value = module.secretsmanager.API_CONFIG_QA["FACEBOOK_CLIENT_ID"]
         }
 
         environment_variable {
             name = "FACEBOOK_CLIENT_SECRET"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["FACEBOOK_CLIENT_SECRET"]}"
+            value = module.secretsmanager.API_CONFIG_QA["FACEBOOK_CLIENT_SECRET"]
         }
 
         environment_variable {
             name = "FRONTEND_URL"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["FRONTEND_URL"]}"
+            value = module.secretsmanager.API_CONFIG_QA["FRONTEND_URL"]
         }
 
         environment_variable {
             name = "GOOGLE_CALLBACK_URL"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["GOOGLE_CALLBACK_URL"]}"
+            value = module.secretsmanager.API_CONFIG_QA["GOOGLE_CALLBACK_URL"]
         }
 
         environment_variable {
             name = "GOOGLE_CLIENT_ID"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["GOOGLE_CLIENT_ID"]}"
+            value = module.secretsmanager.API_CONFIG_QA["GOOGLE_CLIENT_ID"]
         }
 
         environment_variable {
             name = "GOOGLE_CLIENT_SECRET"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["GOOGLE_CLIENT_SECRET"]}"
+            value = module.secretsmanager.API_CONFIG_QA["GOOGLE_CLIENT_SECRET"]
         }
 
         environment_variable {
             name = "KEY"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["KEY"]}"
+            value = module.secretsmanager.API_CONFIG_QA["KEY"]
         }
 
         environment_variable {
             name = "MAILGUN_APIKEY"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["MAILGUN_APIKEY"]}"
+            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_APIKEY"]
         }
 
         environment_variable {
             name = "MAILGUN_DOMAIN"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["MAILGUN_DOMAIN"]}"
+            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_DOMAIN"]
         }
 
         environment_variable {
             name = "MAILGUN_FROM"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["MAILGUN_FROM"]}"
+            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_FROM"]
         }
 
         environment_variable {
             name = "MAILGUN_TEMPLATE_ADDUSER"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["MAILGUN_TEMPLATE_ADDUSER"]}"
+            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_TEMPLATE_ADDUSER"]
         }
 
         environment_variable {
             name = "MAILGUN_TEMPLATE_PWRESET"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["MAILGUN_TEMPLATE_PWRESET"]}"
+            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_TEMPLATE_PWRESET"]
         }
 
         environment_variable {
             name = "MAILGUN_TEMPLATE_SENDCONF"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["MAILGUN_TEMPLATE_SENDCONF"]}"
+            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_TEMPLATE_SENDCONF"]
         }
 
         environment_variable {
             name = "PROJECTNAME"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["PROJECTNAME"]}"
+            value = module.secretsmanager.API_CONFIG_QA["PROJECTNAME"]
         }
 
         environment_variable {
             name = "S3_TEST_BUCKET"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["S3_TEST_BUCKET"]}"
+            value = module.secretsmanager.API_CONFIG_QA["S3_TEST_BUCKET"]
         }
 
         environment_variable {
             name = "SENTRY_DSN"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["SENTRY_DSN"]}"
+            value = module.secretsmanager.API_CONFIG_QA["SENTRY_DSN"]
         }
 
         environment_variable {
             name = "STRIPEID"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["STRIPEID"]}"
+            value = module.secretsmanager.API_CONFIG_QA["STRIPEID"]
         }
 
         environment_variable {
             name = "STRIPE_ACCOUNT_LINK_REFRESH_URL"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["STRIPE_ACCOUNT_LINK_REFRESH_URL"]}"
+            value = module.secretsmanager.API_CONFIG_QA["STRIPE_ACCOUNT_LINK_REFRESH_URL"]
         }
 
         environment_variable {
             name = "STRIPE_ACCOUNT_LINK_SUCCESS_URL"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["STRIPE_ACCOUNT_LINK_SUCCESS_URL"]}"
+            value = module.secretsmanager.API_CONFIG_QA["STRIPE_ACCOUNT_LINK_SUCCESS_URL"]
         }
 
         environment_variable {
             name = "STRIPE_ACCOUNT_WEBHOOK_SECRET_ID"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["STRIPE_ACCOUNT_WEBHOOK_SECRET_ID"]}"
+            value = module.secretsmanager.API_CONFIG_QA["STRIPE_ACCOUNT_WEBHOOK_SECRET_ID"]
         }
 
         environment_variable {
             name = "STRIPE_CHECKOUT_SUCCESS_URL"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["STRIPE_CHECKOUT_SUCCESS_URL"]}"
+            value = module.secretsmanager.API_CONFIG_QA["STRIPE_CHECKOUT_SUCCESS_URL"]
         }
 
         environment_variable {
             name = "STRIPE_PAYMENT_WEBHOOK_SECRET_ID"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["STRIPE_PAYMENT_WEBHOOK_SECRET_ID"]}"
+            value = module.secretsmanager.API_CONFIG_QA["STRIPE_PAYMENT_WEBHOOK_SECRET_ID"]
         }
 
         environment_variable {
             name = "TRIALPERIODDAYS"
             type = "PLAINTEXT"
-            value = "${jsondecode(data.aws_secretsmanager_secret_version.qa_build_secret_version.secret_string)["TRIALPERIODDAYS"]}"
+            value = module.secretsmanager.API_CONFIG_QA["TRIALPERIODDAYS"]
         }
     }
 
