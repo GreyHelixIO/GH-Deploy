@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "gh_task_definition" {
     [
         {
         "name": "gh-${var.service}-task-${var.env}",
-        "image": "${var.ecr_repo_url}:${var.current_image_tag}",
+        "image": "${var.ecr_repo_url}:${local.current_image_tag}",
         "essential": true,
         "environment": [
             {
