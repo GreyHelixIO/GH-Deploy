@@ -243,7 +243,7 @@ resource "aws_codebuild_project" "gh_messaging_deploy_qa" {
         environment_variable {
             name = "ECR_URL"
             type = "PLAINTEXT"
-            value = aws_ecr_repository.gh_api_container_repo_qa.repository_url
+            value = aws_ecr_repository.gh_messaging_container_repo_qa.repository_url
         }
 
         environment_variable {
