@@ -162,7 +162,7 @@ resource "aws_codebuild_project" "gh_messaging_build_qa" {
         environment_variable {
             name = "AWS_SQS_QUEUE_URL"
             type = "PLAINTEXT"
-            value = module.sqs-qa.gh_service_queue_arn
+            value = module.sqs-qa.gh_service_queue_url
         }
 
         environment_variable {
