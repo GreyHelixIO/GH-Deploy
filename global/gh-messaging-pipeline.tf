@@ -162,7 +162,7 @@ resource "aws_codebuild_project" "gh_messaging_build_qa" {
         environment_variable {
             name = "AWS_SQS_QUEUE_URL"
             type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["AWS_SQS_QUEUE_URL"]
+            value = module.sqs-qa.gh_service_queue_arn
         }
 
         environment_variable {
@@ -575,3 +575,24 @@ resource "aws_ecr_repository" "gh_messaging_container_repo_prod" {
         scan_on_push = true
     }
 }
+
+module "sqs-qa" {
+    source = "../aws/sqs"
+
+    env = "qa"
+    service = "messaging"
+}
+
+# module "sqs-stage" {
+#     source = "../aws/sqs"
+
+#     env = "stage"
+#     service = "messaging"
+# }
+
+# module "sqs-prod" {
+#     source = "../aws/sqs"
+
+#     env = "prod"
+#     service = "messaging"
+# }

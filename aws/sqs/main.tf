@@ -1,11 +1,10 @@
 resource "aws_sqs_queue" "gh_service_queue" {
     name                        = "gh-${var.service}-queue-${var.env}"
     fifo_queue                  = false
-    policy                      = aws_sqs_queue_policy.gh_service_queue_policy.arn
 }
 
 resource "aws_sqs_queue_policy" "gh_service_queue_policy" {
-    queue_url = aws_sqs_queue.gh_service_queue.url
+    queue_url = aws_sqs_queue.gh_service_queue.id
 
     policy = <<POLICY
     {
