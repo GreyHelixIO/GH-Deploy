@@ -1,40 +1,37 @@
 resource "aws_ecs_task_definition" "gh_task_definition" {
     family                   = "gh-${var.service}-task-${var.env}"
-    container_definitions    = <<DEFINITION
-    [
+    container_definitions    = jsonencode([
         {
-        "name": "gh-${var.service}-task-${var.env}",
-        "image": "${var.ecr_repo_url}:${local.current_image_tag}",
-        "essential": true,
-        "environment": [
-            {
-                "name": "NODE_ENV",
-                "value": "${var.env}"
-            }
-        ],
-        "logConfiguration": {
-            "logDriver": "awslogs",
-            "options": {
-            "awslogs-group": "${aws_cloudwatch_log_group.log-group.id}",
-            "awslogs-region": "us-east-1",
-            "awslogs-stream-prefix": "gh-${var.service}-${var.env}"
-            }
-        },
-        "portMappings": [
-            {
-                "containerPort": 80,
-                "hostPort": 80
+            name: "gh-${var.service}-task-${var.env}",
+            image: "${var.ecr_repo_url}:${local.current_image_tag}",
+            cpu: 256,
+            memory: 512,
+            essential: true,
+            portMappings: [
+                {
+                    containerPort: 80,
+                    hostPort: 80,
+                },
+                {
+                    containerPort: 443,
+                    hostPort: 443,
+                },
+            ],
+            logConfiguration: {
+                log_driver = "awslogs",
+                options = {
+                    "awslogs-group" = "${aws_cloudwatch_log_group.log-group.id}",
+                    "awslogs-region" = "us-east-1",
+                    "awslogs-stream-prefix" = "gh-${var.service}-${var.env}",
+                },
             },
-            {
-                "containerPort": 443,
-                "hostPort": 443
-            }
-        ],
-            "memory": 512,
-            "cpu": 256
+            environment: {
+                for_each = var.env_vars
+                name = each.key
+                value = each.value
+            },
         }
-    ]
-    DEFINITION
+    ])
     requires_compatibilities = ["FARGATE"]
     network_mode             = "awsvpc"
     memory                   = 512

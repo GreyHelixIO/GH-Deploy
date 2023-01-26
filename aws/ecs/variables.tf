@@ -17,3 +17,8 @@ variable "service" {
     type        = string
     description = "The current service being deployed."
 }
+
+variable "env_vars" {
+    type = list(map(string))
+    description = "The list of environment variables to be provided for the task definition."
+}
