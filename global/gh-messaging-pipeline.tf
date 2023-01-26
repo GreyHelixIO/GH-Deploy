@@ -124,87 +124,9 @@ resource "aws_codebuild_project" "gh_messaging_build_qa" {
         privileged_mode = true
 
         environment_variable {
-            name = "ENV"
-            type = "PLAINTEXT"
-            value = "qa"
-        }
-
-        environment_variable {
             name = "ECR_URL"
             type = "PLAINTEXT"
             value = aws_ecr_repository.gh_messaging_container_repo_qa.repository_url
-        }
-
-        environment_variable {
-            name = "PORT"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["PORT"]
-        }
-
-        environment_variable {
-            name = "AWS_ID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["AWS_ID"]
-        }
-
-        environment_variable {
-            name = "AWS_REGION"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["AWS_REGION"]
-        }
-
-        environment_variable {
-            name = "AWS_SECRET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["AWS_SECRET"]
-        }
-
-        environment_variable {
-            name = "AWS_SQS_QUEUE_URL"
-            type = "PLAINTEXT"
-            value = module.sqs-qa.gh_service_queue_url
-        }
-
-        environment_variable {
-            name = "MAILGUN_APIKEY"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["MAILGUN_APIKEY"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_DOMAIN"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["MAILGUN_DOMAIN"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_FROM"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["MAILGUN_FROM"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_TEMPLATE_ADDUSER"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["MAILGUN_TEMPLATE_ADDUSER"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_TEMPLATE_PWRESET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["MAILGUN_TEMPLATE_PWRESET"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_TEMPLATE_SENDCONF"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["MAILGUN_TEMPLATE_SENDCONF"]
-        }
-
-        environment_variable {
-            name = "PAPERTRAIL_API_TOKEN"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.MESSAGING_CONFIG_QA["PAPERTRAIL_API_TOKEN"]
         }
     }
 
