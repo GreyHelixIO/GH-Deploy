@@ -27,8 +27,9 @@ resource "aws_ecs_task_definition" "gh_task_definition" {
             }
             environment: {
                 for_each = var.env_vars
-                name = each.name
-                value = each.value
+                    for_each = each
+                        name = each.name
+                        value = each.value
             }
         }
     ])
