@@ -25,12 +25,7 @@ resource "aws_ecs_task_definition" "gh_task_definition" {
                     "awslogs-stream-prefix" = "gh-${var.service}-${var.env}",
                 },
             }
-            environment: {
-                for_each = var.env_vars
-                    for_each = each
-                        name = each.name
-                        value = each.value
-            }
+            environment: var.env_vars
         }
     ])
     requires_compatibilities = ["FARGATE"]
