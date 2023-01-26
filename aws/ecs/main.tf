@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "gh_task_definition" {
                 },
             ],
             logConfiguration: {
-                log_driver = "awslogs",
+                logDriver = "awslogs",
                 options = {
                     "awslogs-group" = "${aws_cloudwatch_log_group.log-group.id}",
                     "awslogs-region" = "us-east-1",
