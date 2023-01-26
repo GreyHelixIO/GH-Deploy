@@ -24,12 +24,12 @@ resource "aws_ecs_task_definition" "gh_task_definition" {
                     "awslogs-region" = "us-east-1",
                     "awslogs-stream-prefix" = "gh-${var.service}-${var.env}",
                 },
-            },
+            }
             environment: {
                 for_each = var.env_vars
-                name = each.key
-                value = each.value
-            },
+                name = each.value.name
+                value = each.value.value
+            }
         }
     ])
     requires_compatibilities = ["FARGATE"]
