@@ -15,5 +15,5 @@ output "load_balancer_security_group_id" {
 }
 
 output "default_vpc_id" {
-    vallue = aws_default_vpc.default_vpc.id
+    value = aws_default_vpc.default_vpc.id
 }
