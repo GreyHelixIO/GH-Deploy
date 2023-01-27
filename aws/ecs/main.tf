@@ -55,9 +55,9 @@ resource "aws_ecs_service" "gh_service" {
     deployment_minimum_healthy_percent = 0
     force_new_deployment = true
     network_configuration {
-        subnets = ["${module.sg.aws_default_subnet.default_subnet_a.id}", "${module.sg.aws_default_subnet.default_subnet_b.id}"]
+        subnets = ["${module.sg.default_subnet_a_id}", "${module.sg.default_subnet_b_id}"]
         assign_public_ip = true
-        security_groups  = ["${module.sg.aws_security_group.service_security_group.id}"]
+        security_groups  = ["${module.sg.service_security_group_id}"]
     }
     load_balancer {
         target_group_arn = "${var.alb_target_group_arn}"

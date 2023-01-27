@@ -2,48 +2,11 @@ resource "aws_alb" "application_load_balancer" {
     name               = "gh-alb-${var.env}"
     load_balancer_type = "application"
     subnets = [
-        "${module.sg.aws_default_subnet.default_subnet_a.id}",
-        "${module.sg.aws_default_subnet.default_subnet_b.id}"
+        "${module.sg.default_subnet_a_id}",
+        "${module.sg.default_subnet_b_id}"
     ]
 
-    security_groups = ["${module.sg.aws_security_group.load_balancer_security_group.id}"]
-}
-resource "aws_security_group" "load_balancer_security_group" {
-    ingress {
-        from_port   = 80
-        to_port     = 80
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    ingress {
-        from_port   = 443
-        to_port     = 443
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-
-    egress {
-        from_port   = 0
-        to_port     = 0
-        protocol    = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-}
-
-resource "aws_security_group" "service_security_group" {
-    ingress {
-        from_port = 0
-        to_port   = 0
-        protocol  = "-1"
-        security_groups = ["${module.sg.aws_security_group.load_balancer_security_group.id}"]
-    }
-
-    egress {
-        from_port   = 0
-        to_port     = 0
-        protocol    = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+    security_groups = ["${module.sg.load_balancer_security_group_id}"]
 }
 
 resource "aws_lb_target_group" "target_group" {
@@ -51,7 +14,7 @@ resource "aws_lb_target_group" "target_group" {
     port        = 80
     protocol    = "HTTP"
     target_type = "ip"
-    vpc_id      = "${module.sg.aws_default_vpc.default_vpc.id}"
+    vpc_id      = "${module.sg.default_vpc_id}"
     health_check {
         matcher = "200,301,302"
         path = "/health"
