@@ -44,32 +44,32 @@ resource "aws_codepipeline" "gh_api_pipeline" {
         }
     }
 
-    # stage {
-    #     name = "Deploy-QA"
-    #         action {
-    #             name             = "Deploy-QA"
-    #             category         = "Build"
-    #             owner            = "AWS"
-    #             provider         = "CodeBuild"
-    #             input_artifacts  = ["qa_build"]
-    #             version          = "1"
+    stage {
+        name = "Deploy-QA"
+            action {
+                name             = "Deploy-QA"
+                category         = "Build"
+                owner            = "AWS"
+                provider         = "CodeBuild"
+                input_artifacts  = ["qa_build"]
+                version          = "1"
 
-    #         configuration = {
-    #             ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
-    #         }
-    #     }
-    # }
+            configuration = {
+                ProjectName          = aws_codebuild_project.gh_api_deploy_qa.name
+            }
+        }
+    }
 
-    # stage {
-    #     name = "Approve-QA"
-    #     action {
-    #         name             = "Approve-QA"
-    #         category         = "Approval"
-    #         owner            = "AWS"
-    #         provider         = "Manual"
-    #         version          = "1"
-    #     }
-    # }
+    stage {
+        name = "Approve-QA"
+        action {
+            name             = "Approve-QA"
+            category         = "Approval"
+            owner            = "AWS"
+            provider         = "Manual"
+            version          = "1"
+        }
+    }
 
     # stage {
     #     name = "Prod-Build"
@@ -124,219 +124,9 @@ resource "aws_codebuild_project" "gh_api_build_qa" {
         privileged_mode = true
 
         environment_variable {
-            name = "ENV"
-            type = "PLAINTEXT"
-            value = "qa"
-        }
-
-        environment_variable {
             name = "ECR_URL"
             type = "PLAINTEXT"
-            value = aws_ecr_repository.gh_api_container_repo_qa.repository_url
-        }
-
-        environment_variable {
-            name = "PORT"
-            type = "PLAINTEXT"
-            value = var.gh_api_port
-        }
-
-        environment_variable {
-            name = "AWS_ID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["AWS_ID"]
-        }
-
-        environment_variable {
-            name = "AWS_REGION"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["AWS_REGION"]
-        }
-
-        environment_variable {
-            name = "AWS_SECRET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["AWS_SECRET"]
-        }
-
-        environment_variable {
-            name = "AWS_SNS_TOPIC_ARN"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["AWS_SNS_TOPIC_ARN"]
-        }
-
-        environment_variable {
-            name = "COOKIEDOMAIN"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["COOKIEDOMAIN"]
-        }
-
-        environment_variable {
-            name = "DB_NAME"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["DB_NAME"]
-        }
-
-        environment_variable {
-            name = "DB_PWD"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["DB_PWD"]
-        }
-
-        environment_variable {
-            name = "DB_USER"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["DB_USER"]
-        }
-
-        environment_variable {
-            name = "DEFAULTPRICE"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["DEFAULTPRICE"]
-        }
-
-        environment_variable {
-            name = "FACEBOOK_CALLBACK_URL"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["FACEBOOK_CALLBACK_URL"]
-        }
-
-        environment_variable {
-            name = "FACEBOOK_CLIENT_ID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["FACEBOOK_CLIENT_ID"]
-        }
-
-        environment_variable {
-            name = "FACEBOOK_CLIENT_SECRET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["FACEBOOK_CLIENT_SECRET"]
-        }
-
-        environment_variable {
-            name = "FRONTEND_URL"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["FRONTEND_URL"]
-        }
-
-        environment_variable {
-            name = "GOOGLE_CALLBACK_URL"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["GOOGLE_CALLBACK_URL"]
-        }
-
-        environment_variable {
-            name = "GOOGLE_CLIENT_ID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["GOOGLE_CLIENT_ID"]
-        }
-
-        environment_variable {
-            name = "GOOGLE_CLIENT_SECRET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["GOOGLE_CLIENT_SECRET"]
-        }
-
-        environment_variable {
-            name = "KEY"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["KEY"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_APIKEY"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_APIKEY"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_DOMAIN"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_DOMAIN"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_FROM"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_FROM"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_TEMPLATE_ADDUSER"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_TEMPLATE_ADDUSER"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_TEMPLATE_PWRESET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_TEMPLATE_PWRESET"]
-        }
-
-        environment_variable {
-            name = "MAILGUN_TEMPLATE_SENDCONF"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["MAILGUN_TEMPLATE_SENDCONF"]
-        }
-
-        environment_variable {
-            name = "PROJECTNAME"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["PROJECTNAME"]
-        }
-
-        environment_variable {
-            name = "S3_TEST_BUCKET"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["S3_TEST_BUCKET"]
-        }
-
-        environment_variable {
-            name = "SENTRY_DSN"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["SENTRY_DSN"]
-        }
-
-        environment_variable {
-            name = "STRIPEID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["STRIPEID"]
-        }
-
-        environment_variable {
-            name = "STRIPE_ACCOUNT_LINK_REFRESH_URL"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["STRIPE_ACCOUNT_LINK_REFRESH_URL"]
-        }
-
-        environment_variable {
-            name = "STRIPE_ACCOUNT_LINK_SUCCESS_URL"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["STRIPE_ACCOUNT_LINK_SUCCESS_URL"]
-        }
-
-        environment_variable {
-            name = "STRIPE_ACCOUNT_WEBHOOK_SECRET_ID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["STRIPE_ACCOUNT_WEBHOOK_SECRET_ID"]
-        }
-
-        environment_variable {
-            name = "STRIPE_CHECKOUT_SUCCESS_URL"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["STRIPE_CHECKOUT_SUCCESS_URL"]
-        }
-
-        environment_variable {
-            name = "STRIPE_PAYMENT_WEBHOOK_SECRET_ID"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["STRIPE_PAYMENT_WEBHOOK_SECRET_ID"]
-        }
-
-        environment_variable {
-            name = "TRIALPERIODDAYS"
-            type = "PLAINTEXT"
-            value = module.secretsmanager.API_CONFIG_QA["TRIALPERIODDAYS"]
+            value = aws_ecr_repository.gh_messaging_container_repo_qa.repository_url
         }
     }
 
@@ -348,44 +138,50 @@ resource "aws_codebuild_project" "gh_api_build_qa" {
     source_version = "main"
 }
 
-# resource "aws_codebuild_project" "gh_api_deploy_qa" {
-#     name          = "gh-api-deploy-qa"
-#     description   = "CodeBuild project for deploying CryptoSound."
-#     build_timeout = "5"
-#     service_role  = var.aws_cicd_role_arn
+resource "aws_codebuild_project" "gh_api_deploy_qa" {
+    name          = "gh-api-deploy-qa"
+    description   = "CodeBuild project for deploying CryptoSound."
+    build_timeout = "5"
+    service_role  = var.aws_cicd_role_arn
 
-#     artifacts {
-#         type = "CODEPIPELINE"
-#     }
+    artifacts {
+        type = "CODEPIPELINE"
+    }
 
-#     environment {
-#         compute_type                = "BUILD_GENERAL1_SMALL"
-#         image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
-#         type                        = "LINUX_CONTAINER"
-#         image_pull_credentials_type = "CODEBUILD"
+    environment {
+        compute_type                = "BUILD_GENERAL1_SMALL"
+        image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+        type                        = "LINUX_CONTAINER"
+        image_pull_credentials_type = "CODEBUILD"
 
-#         privileged_mode = true
+        privileged_mode = true
 
-#         environment_variable {
-#             name = "ENV"
-#             type = "PLAINTEXT"
-#             value = "qa"
-#         }
+        environment_variable {
+            name = "ENV"
+            type = "PLAINTEXT"
+            value = "qa"
+        }
 
-#         environment_variable {
-#             name = "ECR_URL"
-#             type = "PLAINTEXT"
-#             value = aws_ecr_repository.gh_api_api_container_repo_qa.repository_url
-#         }
-#     }
+        environment_variable {
+            name = "ECR_URL"
+            type = "PLAINTEXT"
+            value = aws_ecr_repository.gh_messaging_container_repo_qa.repository_url
+        }
 
-#     source {
-#         type      = "CODEPIPELINE"
-#         buildspec = "./buildspec/deploy.yaml"
-#     }
+        environment_variable {
+            name = "SERVICE"
+            type = "PLAINTEXT"
+            value = "messaging"
+        }
+    }
 
-#     source_version = "main"
-# }
+    source {
+        type      = "CODEPIPELINE"
+        buildspec = "./buildspec/deploy.yaml"
+    }
+
+    source_version = "main"
+}
 
 # resource "aws_codebuild_project" "gh_api_build_prod" {
 #     name          = "gh-api-build-prod"
