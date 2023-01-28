@@ -171,7 +171,7 @@ resource "aws_codebuild_project" "gh_api_deploy_qa" {
         environment_variable {
             name = "SERVICE"
             type = "PLAINTEXT"
-            value = "messaging"
+            value = "api"
         }
     }
 
