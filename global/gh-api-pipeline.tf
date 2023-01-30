@@ -140,7 +140,7 @@ resource "aws_codebuild_project" "gh_api_build_qa" {
 
 resource "aws_codebuild_project" "gh_api_deploy_qa" {
     name          = "gh-api-deploy-qa"
-    description   = "CodeBuild project for deploying CryptoSound."
+    description   = "CodeBuild project for deploying GH API to QA."
     build_timeout = "5"
     service_role  = var.aws_cicd_role_arn
 
@@ -185,7 +185,7 @@ resource "aws_codebuild_project" "gh_api_deploy_qa" {
 
 # resource "aws_codebuild_project" "gh_api_build_prod" {
 #     name          = "gh-api-build-prod"
-#     description   = "CodeBuild project for building CryptoSound."
+#     description   = "CodeBuild project for building GH API for Production."
 #     build_timeout = "5"
 #     service_role  = var.aws_cicd_role_arn
 
@@ -230,7 +230,7 @@ resource "aws_codebuild_project" "gh_api_deploy_qa" {
 
 # resource "aws_codebuild_project" "gh_api_deploy_prod" {
 #     name          = "gh-api-deploy-prod"
-#     description   = "CodeBuild project for deploying CryptoSound."
+#     description   = "CodeBuild project for deploying GH API to Prod."
 #     build_timeout = "5"
 #     service_role  = var.aws_cicd_role_arn
 
