@@ -59,11 +59,6 @@ resource "aws_ecs_service" "gh_service" {
         assign_public_ip = true
         security_groups  = [aws_security_group.service_security_group.id]
     }
-    load_balancer {
-        target_group_arn = "${var.alb_target_group_arn}"
-        container_name   = "${aws_ecs_task_definition.gh_task_definition.family}"
-        container_port   = 80
-    }
 }
 
 resource "aws_ecs_cluster" "gh_cluster" {
@@ -81,10 +76,16 @@ resource "aws_cloudwatch_log_group" "log-group" {
 
 resource "aws_security_group" "service_security_group" {
     ingress {
-        from_port = 0
-        to_port   = 0
-        protocol  = "-1"
-        security_groups = [var.alb_security_group]
+        from_port   = 80
+        to_port     = 80
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress {
+        from_port   = 443
+        to_port     = 443
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
     }
 
     egress {

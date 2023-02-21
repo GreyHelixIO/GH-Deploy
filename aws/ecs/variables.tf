@@ -22,13 +22,3 @@ variable "env_vars" {
     type = list(map(string))
     description = "The list of environment variables to be provided for the task definition."
 }
-
-variable "alb_target_group_arn" {
-    type = string
-    description = "The target group arn of the ALB that the service will connect to."
-}
-
-variable "alb_security_group" {
-    type = string
-    description = "The security group arn of the ALB that the service will connect to."
-}
