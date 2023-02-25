@@ -62,7 +62,6 @@ resource "aws_ecs_service" "gh_service" {
 
     service_registries {
         registry_arn = aws_service_discovery_service.gh_service_discovery_service.arn
-        port         = 80
     }
 }
 
