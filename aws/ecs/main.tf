@@ -120,7 +120,7 @@ resource "aws_service_discovery_private_dns_namespace" "ecs_service_private_dns_
     vpc  = aws_default_vpc.default_vpc.id
 }
 
-resource "aws_route53_health_check" "my_health_check" {
+resource "aws_route53_health_check" "gh_health_check" {
     fqdn                = aws_service_discovery_private_dns_namespace.ecs_service_private_dns_namespace.name
     port                = 80
     type                = "HTTP"
