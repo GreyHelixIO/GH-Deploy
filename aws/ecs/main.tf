@@ -59,6 +59,11 @@ resource "aws_ecs_service" "gh_service" {
         assign_public_ip = false
         security_groups  = [aws_security_group.service_security_group.id]
     }
+
+    service_registries {
+        registry_arn = aws_service_discovery_private_dns_namespace.ecs_service_private_dns_namespace.arn
+        port         = 80
+    }
 }
 
 resource "aws_ecs_cluster" "gh_cluster" {
@@ -108,4 +113,20 @@ resource "aws_default_subnet" "default_subnet_a" {
 
 resource "aws_default_subnet" "default_subnet_b" {
     availability_zone = "us-east-1b"
+}
+
+resource "aws_service_discovery_private_dns_namespace" "ecs_service_private_dns_namespace" {
+    name = "${var.env}-${var.service}.local"
+}
+
+resource "aws_route53_health_check" "my_health_check" {
+    fqdn                = aws_service_discovery_private_dns_namespace.ecs_service_private_dns_namespace.name
+    port                = 80
+    type                = "HTTP"
+    resource_path       = "/health"
+    failure_threshold   = 3
+    request_interval    = 30
+    regions             = ["us-east-1"]
+    alarm_identifier    = "${var.env}-${var.service}-health-check"
+    insufficient_data_health_status = "Healthy"
 }
