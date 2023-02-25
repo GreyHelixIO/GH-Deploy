@@ -117,6 +117,7 @@ resource "aws_default_subnet" "default_subnet_b" {
 
 resource "aws_service_discovery_private_dns_namespace" "ecs_service_private_dns_namespace" {
     name = "${var.env}-${var.service}.local"
+    vpc  = aws_default_vpc.default_vpc.id
 }
 
 resource "aws_route53_health_check" "my_health_check" {
