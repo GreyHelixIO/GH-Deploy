@@ -61,7 +61,7 @@ resource "aws_ecs_service" "gh_service" {
     }
 
     service_registries {
-        registry_arn = aws_service_discovery_private_dns_namespace.ecs_service_private_dns_namespace.arn
+        registry_arn = aws_service_discovery_service.gh_service_discovery_service.arn
         port         = 80
     }
 }
@@ -118,6 +118,20 @@ resource "aws_default_subnet" "default_subnet_b" {
 resource "aws_service_discovery_private_dns_namespace" "ecs_service_private_dns_namespace" {
     name = "${var.env}-${var.service}.local"
     vpc  = aws_default_vpc.default_vpc.id
+}
+resource "aws_service_discovery_service" "gh_service_discovery_service" {
+    name = "gh-${var.service}-service-${var.env}"
+
+    dns_config {
+        namespace_id = aws_service_discovery_private_dns_namespace.ecs_service_private_dns_namespace.id
+
+        dns_records {
+        ttl  = 10
+        type = "A"
+        }
+
+        routing_policy = "MULTIVALUE"
+    }
 }
 
 resource "aws_route53_health_check" "gh_health_check" {
