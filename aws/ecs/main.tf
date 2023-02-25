@@ -127,7 +127,6 @@ resource "aws_route53_health_check" "my_health_check" {
     resource_path       = "/health"
     failure_threshold   = 3
     request_interval    = 30
-    regions             = ["us-east-1"]
     insufficient_data_health_status = "Healthy"
     tags = {
         Name = "${var.env}-${var.service}-health-check"
